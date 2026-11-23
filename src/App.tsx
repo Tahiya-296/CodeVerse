@@ -1,5 +1,5 @@
 import { AppHeader } from './components/AppHeader'
-import { CodeEditor } from './components/CodeEditor'
+import { CompilerWorkspace } from './components/CompilerWorkspace'
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
           </p>
         </div>
 
-        <CodeEditor />
+        <CompilerWorkspace />
       </main>
 
       <footer className="site-footer">
