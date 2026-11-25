@@ -1,4 +1,4 @@
-import Editor, { loader, type BeforeMount, type OnMount } from '@monaco-editor/react'
+import Editor, { loader } from '@monaco-editor/react'
 import * as monaco from 'monaco-editor/editor'
 import EditorWorker from 'monaco-editor/editor/editor.worker.js?worker'
 import 'monaco-editor/editor/contrib/clipboard/browser/clipboard.js'
@@ -16,10 +16,9 @@ const languages = {
   java: { label: 'Java', filename: 'Main.java' },
 }
 
-type Language = keyof typeof languages
-const languageIds = Object.keys(languages) as Language[]
+const languageIds = Object.keys(languages)
 
-const starterCode: Record<Language, string> = {
+const starterCode = {
   c: `#include <stdio.h>
 
 int main(void) {
@@ -42,7 +41,7 @@ int main() {
 `,
 }
 
-const defineTheme: BeforeMount = (monaco) => {
+const defineTheme = (monaco) => {
   monaco.editor.defineTheme('codeverse', {
     base: 'vs-dark',
     inherit: true,
@@ -61,7 +60,7 @@ const defineTheme: BeforeMount = (monaco) => {
   })
 }
 
-const editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = {
+const editorOptions = {
   ariaLabel: 'Source code',
   automaticLayout: true,
   fontSize: 13,
@@ -73,16 +72,16 @@ const editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = {
 }
 
 export function CodeEditor() {
-  const [language, setLanguage] = useState<Language>('cpp')
+  const [language, setLanguage] = useState('cpp')
   const [drafts, setDrafts] = useState(starterCode)
   const [cursor, setCursor] = useState({ lineNumber: 1, column: 1 })
   const { filename } = languages[language]
 
-  const updateDraft = useCallback((value: string | undefined) => {
+  const updateDraft = useCallback((value) => {
     setDrafts((previous) => ({ ...previous, [language]: value ?? '' }))
   }, [language])
 
-  const trackCursor: OnMount = (editor) => {
+  const trackCursor = (editor) => {
     const updateCursor = () => {
       const position = editor.getPosition()
       if (position) setCursor(position)
@@ -100,7 +99,7 @@ export function CodeEditor() {
         <span className="editor-file">{filename}</span>
         <label className="editor-language">
           Language
-          <select value={language} onChange={(event) => setLanguage(event.target.value as Language)}>
+          <select value={language} onChange={(event) => setLanguage(event.target.value)}>
             {languageIds.map((id) => <option key={id} value={id}>{languages[id].label}</option>)}
           </select>
         </label>

@@ -33,7 +33,7 @@ Browser checks used the local Vite production preview in the Codex in-app browse
 ## Milestone 2 — Convert the React entry point and page shell
 
 - Branch — `main`
-- Milestone commit — Pending approval
+- Milestone commit — `39f627ea63386ca2503b21929323932c4d3ff58e`
 - Files renamed — `src/main.tsx` to `src/main.jsx`, `src/App.tsx` to `src/App.jsx`, and `src/components/AppHeader.tsx` to `src/components/AppHeader.jsx`
 - Files modified — `index.html` and `DEVELOPMENT_PROGRESS.md`
 
@@ -44,3 +44,19 @@ Updated the HTML entry to load `main.jsx` and removed the TypeScript-only assert
 - `npm run build` passed. Vite repeated the baseline warning about a minified chunk exceeding 500 kB.
 - The production build emitted the same JavaScript and CSS asset filenames as the tested Milestone 1 build.
 - Git whitespace checks passed for the tracked changes and new JSX paths.
+
+## Milestone 3 — Convert the Monaco editor
+
+- Branch — `main`
+- Milestone commit — Pending approval
+- File renamed — `src/components/CodeEditor.tsx` to `src/components/CodeEditor.jsx`
+- Files modified — `tsconfig.app.json` and `DEVELOPMENT_PROGRESS.md`
+
+Removed TypeScript syntax from the editor. Enabled `allowJs` so the TypeScript workspace can import the JSX editor during the migration.
+
+### Checks
+
+- The first build reported TS7016 for the workspace import. After enabling `allowJs`, `npm run build` passed with the existing bundle-size warning. The production build emitted the same JavaScript, CSS, and worker asset filenames as the baseline.
+- The production preview opened in Monaco with C++ selected. C, C++, and Java displayed their filenames and starter code. Edits stayed in their corresponding drafts and the cursor column updated in each language.
+- The custom editor background and Java syntax highlighting were visible. The browser console showed no warnings or errors during the editor checks.
+- Git whitespace checks passed for the tracked changes and the new JSX path.
