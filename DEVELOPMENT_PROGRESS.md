@@ -5,7 +5,7 @@
 - Date — 25 November 2026
 - Branch — `main`
 - Baseline commit — `9915df456cb8f9bfa660fd60ae9018e859fa5369`
-- Milestone commit — Pending approval
+- Milestone commit — `93dc07e10e6497d30d8fe4e205ddf53e3fc4e3e1`
 - Files created — `DEVELOPMENT_PROGRESS.md`
 
 Recorded the behavior of the React, Vite, TypeScript, and Monaco frontend before the JavaScript migration.
@@ -29,3 +29,18 @@ Browser checks used the local Vite production preview in the Codex in-app browse
 - `npm run build` passed. Vite warned that a minified chunk exceeded 500 kB.
 - The browser console reported no errors during these checks.
 - `git diff --check` and the whitespace check for the new document passed.
+
+## Milestone 2 — Convert the React entry point and page shell
+
+- Branch — `main`
+- Milestone commit — Pending approval
+- Files renamed — `src/main.tsx` to `src/main.jsx`, `src/App.tsx` to `src/App.jsx`, and `src/components/AppHeader.tsx` to `src/components/AppHeader.jsx`
+- Files modified — `index.html` and `DEVELOPMENT_PROGRESS.md`
+
+Updated the HTML entry to load `main.jsx` and removed the TypeScript-only assertion after the lookup for the React root. The contents of `App` and `AppHeader` are identical after the renames.
+
+### Checks
+
+- `npm run build` passed. Vite repeated the baseline warning about a minified chunk exceeding 500 kB.
+- The production build emitted the same JavaScript and CSS asset filenames as the tested Milestone 1 build.
+- Git whitespace checks passed for the tracked changes and new JSX paths.
