@@ -1,15 +1,9 @@
 import { useState } from 'react'
 import { CodeEditor } from './CodeEditor'
 
-type ExecutionState = {
-  status: 'idle' | 'unavailable'
-  output: string
-  error: string
-}
-
 export function CompilerWorkspace() {
   const [input, setInput] = useState('')
-  const [execution, setExecution] = useState<ExecutionState>({
+  const [execution, setExecution] = useState({
     status: 'idle',
     output: '',
     error: '',

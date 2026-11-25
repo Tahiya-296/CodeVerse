@@ -5,7 +5,7 @@ CodeVerse is a multi-language online compiler project for C, C++, and Java. This
 ## Frontend stack
 
 - React
-- TypeScript
+- JavaScript and JSX
 - Vite
 - npm
 
@@ -39,9 +39,9 @@ The production files are written to `dist/`. `npm run preview` serves that build
 ```text
 src/
   components/   Shared UI components
-  App.tsx        Initial CodeVerse homepage
-  main.tsx       React application entry point
+  App.jsx        Initial CodeVerse homepage
+  main.jsx       React application entry point
   styles.css     Global styles and responsive layout
 index.html       Vite HTML entry
-vite.config.ts   Vite and React plugin configuration
+vite.config.js   Vite and React plugin configuration
 ```

@@ -48,7 +48,7 @@ Updated the HTML entry to load `main.jsx` and removed the TypeScript-only assert
 ## Milestone 3 — Convert the Monaco editor
 
 - Branch — `main`
-- Milestone commit — Pending approval
+- Milestone commit — `3af763c5ee2b628b5f0a003b7bc4fd117aae84f8`
 - File renamed — `src/components/CodeEditor.tsx` to `src/components/CodeEditor.jsx`
 - Files modified — `tsconfig.app.json` and `DEVELOPMENT_PROGRESS.md`
 
@@ -60,3 +60,21 @@ Removed TypeScript syntax from the editor. Enabled `allowJs` so the TypeScript w
 - The production preview opened in Monaco with C++ selected. C, C++, and Java displayed their filenames and starter code. Edits stayed in their corresponding drafts and the cursor column updated in each language.
 - The custom editor background and Java syntax highlighting were visible. The browser console showed no warnings or errors during the editor checks.
 - Git whitespace checks passed for the tracked changes and the new JSX path.
+
+## Milestone 4 — Convert the workspace and finish the Vite migration
+
+- Branch — `main`
+- Milestone commit — Pending approval
+- Files renamed — `src/components/CompilerWorkspace.tsx` to `src/components/CompilerWorkspace.jsx` and `vite.config.ts` to `vite.config.js`
+- Files removed — `tsconfig.json`, `tsconfig.app.json`, and `tsconfig.node.json`
+- Files modified — `package.json`, `package-lock.json`, `README.md`, and `DEVELOPMENT_PROGRESS.md`
+
+Removed the workspace's TypeScript annotations and switched the build to `vite build`. Used npm to uninstall TypeScript and the React type packages and update the lockfile. Updated the README's stack and file paths.
+
+### Checks
+
+- `npm run build` passed with the existing bundle-size warning. The generated JavaScript, CSS, and Monaco worker asset filenames matched the baseline.
+- The active frontend contains no TypeScript source, configs, or references to the old build command. `npm ls --depth=0` passed.
+- The production preview passed at 1280 × 800 and 375 × 800. In both viewports, Monaco loaded, all three languages showed their starter code and filenames, and edits stayed in their own drafts. Multiline input survived Run, which reported execution unavailable. Output and Error showed their empty states. The layout was side by side on desktop and stacked on mobile.
+- The browser console showed no warnings or errors. npm warned that the esbuild install script was outside its allow list, and the build completed successfully.
+- Git whitespace checks passed for the tracked changes and renamed files.
