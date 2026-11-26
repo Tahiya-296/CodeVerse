@@ -1,13 +1,42 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { CodeEditor } from './CodeEditor'
 
+const starterCode = {
+  c: `#include <stdio.h>
+
+int main(void) {
+    printf("Hello, CodeVerse!\\n");
+    return 0;
+}
+`,
+  cpp: `#include <iostream>
+
+int main() {
+    std::cout << "Hello, CodeVerse!" << '\\n';
+    return 0;
+}
+`,
+  java: `public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello, CodeVerse!");
+    }
+}
+`,
+}
+
 export function CompilerWorkspace() {
+  const [language, setLanguage] = useState('cpp')
+  const [drafts, setDrafts] = useState(starterCode)
   const [input, setInput] = useState('')
   const [execution, setExecution] = useState({
     status: 'idle',
     output: '',
     error: '',
   })
+
+  const updateDraft = useCallback((value) => {
+    setDrafts((previous) => ({ ...previous, [language]: value ?? '' }))
+  }, [language])
 
   function handleRun() {
     setExecution({ status: 'unavailable', output: '', error: '' })
@@ -26,7 +55,12 @@ export function CompilerWorkspace() {
       </div>
 
       <div className="workspace-grid">
-        <CodeEditor />
+        <CodeEditor
+          language={language}
+          sourceCode={drafts[language]}
+          onLanguageChange={setLanguage}
+          onSourceCodeChange={updateDraft}
+        />
 
         <div className="workspace-panels">
           <div className="workspace-panel">

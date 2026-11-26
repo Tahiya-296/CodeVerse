@@ -5,7 +5,7 @@ import 'monaco-editor/editor/contrib/clipboard/browser/clipboard.js'
 import 'monaco-editor/editor/contrib/find/browser/findController.js'
 import 'monaco-editor/languages/definitions/cpp/register.js'
 import 'monaco-editor/languages/definitions/java/register.js'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 
 self.MonacoEnvironment = { getWorker: () => new EditorWorker() }
 loader.config({ monaco })
@@ -17,29 +17,6 @@ const languages = {
 }
 
 const languageIds = Object.keys(languages)
-
-const starterCode = {
-  c: `#include <stdio.h>
-
-int main(void) {
-    printf("Hello, CodeVerse!\\n");
-    return 0;
-}
-`,
-  cpp: `#include <iostream>
-
-int main() {
-    std::cout << "Hello, CodeVerse!" << '\\n';
-    return 0;
-}
-`,
-  java: `public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello, CodeVerse!");
-    }
-}
-`,
-}
 
 const defineTheme = (monaco) => {
   monaco.editor.defineTheme('codeverse', {
@@ -71,15 +48,9 @@ const editorOptions = {
   wordWrap: 'on',
 }
 
-export function CodeEditor() {
-  const [language, setLanguage] = useState('cpp')
-  const [drafts, setDrafts] = useState(starterCode)
+export function CodeEditor({ language, sourceCode, onLanguageChange, onSourceCodeChange }) {
   const [cursor, setCursor] = useState({ lineNumber: 1, column: 1 })
   const { filename } = languages[language]
-
-  const updateDraft = useCallback((value) => {
-    setDrafts((previous) => ({ ...previous, [language]: value ?? '' }))
-  }, [language])
 
   const trackCursor = (editor) => {
     const updateCursor = () => {
@@ -99,7 +70,7 @@ export function CodeEditor() {
         <span className="editor-file">{filename}</span>
         <label className="editor-language">
           Language
-          <select value={language} onChange={(event) => setLanguage(event.target.value)}>
+          <select value={language} onChange={(event) => onLanguageChange(event.target.value)}>
             {languageIds.map((id) => <option key={id} value={id}>{languages[id].label}</option>)}
           </select>
         </label>
@@ -108,8 +79,8 @@ export function CodeEditor() {
         <Editor
           path={filename}
           language={language}
-          value={drafts[language]}
-          onChange={updateDraft}
+          value={sourceCode}
+          onChange={onSourceCodeChange}
           beforeMount={defineTheme}
           onMount={trackCursor}
           theme="codeverse"
