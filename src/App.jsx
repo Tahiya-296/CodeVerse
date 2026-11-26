@@ -1,10 +1,21 @@
+import { useEffect, useState } from 'react'
 import { AppHeader } from './components/AppHeader'
 import { CompilerWorkspace } from './components/CompilerWorkspace'
 
 function App() {
+  const [theme, setTheme] = useState(() => {
+    return window.localStorage.getItem('codeverse-theme') === 'light' ? 'light' : 'dark'
+  })
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    document.documentElement.style.colorScheme = theme
+    window.localStorage.setItem('codeverse-theme', theme)
+  }, [theme])
+
   return (
-    <div className="site-shell">
-      <AppHeader />
+    <div className="site-shell" data-theme={theme}>
+      <AppHeader theme={theme} onToggleTheme={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')} />
 
       <main className="hero">
         <div className="hero-copy">
@@ -15,7 +26,7 @@ function App() {
           </p>
         </div>
 
-        <CompilerWorkspace />
+        <CompilerWorkspace theme={theme} />
       </main>
 
       <footer className="site-footer">

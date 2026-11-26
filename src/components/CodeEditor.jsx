@@ -42,7 +42,7 @@ int main() {
 }
 
 const defineTheme = (monaco) => {
-  monaco.editor.defineTheme('codeverse', {
+  monaco.editor.defineTheme('codeverse-dark', {
     base: 'vs-dark',
     inherit: true,
     rules: [
@@ -58,6 +58,22 @@ const defineTheme = (monaco) => {
       'editorLineNumber.foreground': '#9c9eae',
     },
   })
+  monaco.editor.defineTheme('codeverse-light', {
+    base: 'vs',
+    inherit: true,
+    rules: [
+      { token: 'keyword', foreground: '7048C8' },
+      { token: 'string', foreground: '8C5B00' },
+      { token: 'comment', foreground: '73788A' },
+    ],
+    colors: {
+      'editor.background': '#fbfaff',
+      'editor.foreground': '#252238',
+      'editor.lineHighlightBackground': '#f0edfa',
+      'editor.selectionBackground': '#d8cff5',
+      'editorLineNumber.foreground': '#858198',
+    },
+  })
 }
 
 const editorOptions = {
@@ -71,7 +87,7 @@ const editorOptions = {
   wordWrap: 'on',
 }
 
-export function CodeEditor() {
+export function CodeEditor({ theme = 'dark' }) {
   const [language, setLanguage] = useState('cpp')
   const [drafts, setDrafts] = useState(starterCode)
   const [cursor, setCursor] = useState({ lineNumber: 1, column: 1 })
@@ -112,7 +128,7 @@ export function CodeEditor() {
           onChange={updateDraft}
           beforeMount={defineTheme}
           onMount={trackCursor}
-          theme="codeverse"
+          theme={theme === 'light' ? 'codeverse-light' : 'codeverse-dark'}
           loading={<span role="status">Loading editor…</span>}
           options={editorOptions}
         />

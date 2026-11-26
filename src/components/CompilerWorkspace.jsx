@@ -1,16 +1,21 @@
 import { useState } from 'react'
 import { CodeEditor } from './CodeEditor'
+import { ErrorDisplay } from './ErrorDisplay'
+import { ExecutionStatus } from './ExecutionStatus'
+import { OutputConsole } from './OutputConsole'
+import { StdinPanel } from './StdinPanel'
 
-export function CompilerWorkspace() {
+export function CompilerWorkspace({ theme = 'dark' }) {
   const [input, setInput] = useState('')
   const [execution, setExecution] = useState({
     status: 'idle',
     output: '',
-    error: '',
+    compilationError: '',
+    runtimeError: '',
   })
 
   function handleRun() {
-    setExecution({ status: 'unavailable', output: '', error: '' })
+    setExecution({ status: 'unavailable', output: '', compilationError: '', runtimeError: '' })
   }
 
   return (
@@ -19,36 +24,19 @@ export function CompilerWorkspace() {
         <button className="run-button" type="button" onClick={handleRun} aria-describedby="execution-status">
           Run
         </button>
-        <p id="execution-status" role="status">
-          Execution service not connected.
-          {execution.status === 'unavailable' && ' No code was run.'}
-        </p>
+        <ExecutionStatus status={execution.status} />
       </div>
 
       <div className="workspace-grid">
-        <CodeEditor />
+        <CodeEditor theme={theme} />
 
         <div className="workspace-panels">
-          <div className="workspace-panel">
-            <label className="workspace-panel-title" htmlFor="standard-input">Standard Input</label>
-            <textarea
-              id="standard-input"
-              value={input}
-              onChange={(event) => setInput(event.target.value)}
-              rows={3}
-              spellCheck={false}
-            />
-          </div>
-
-          <section className="workspace-panel" aria-labelledby="output-title">
-            <h2 className="workspace-panel-title" id="output-title">Output</h2>
-            {execution.output ? <pre>{execution.output}</pre> : <p>No output yet.</p>}
-          </section>
-
-          <section className="workspace-panel" aria-labelledby="error-title">
-            <h2 className="workspace-panel-title" id="error-title">Error</h2>
-            {execution.error ? <pre>{execution.error}</pre> : <p>No error results yet.</p>}
-          </section>
+          <StdinPanel value={input} onChange={setInput} />
+          <OutputConsole output={execution.output} />
+          <ErrorDisplay
+            compilationError={execution.compilationError}
+            runtimeError={execution.runtimeError}
+          />
         </div>
       </div>
     </section>
