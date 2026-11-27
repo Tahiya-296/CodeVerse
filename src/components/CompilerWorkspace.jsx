@@ -28,18 +28,14 @@ export function CompilerWorkspace() {
   const [language, setLanguage] = useState('cpp')
   const [drafts, setDrafts] = useState(starterCode)
   const [input, setInput] = useState('')
-  const [execution, setExecution] = useState({
-    status: 'idle',
-    output: '',
-    error: '',
-  })
+  const [hasAttemptedRun, setHasAttemptedRun] = useState(false)
 
   const updateDraft = useCallback((value) => {
     setDrafts((previous) => ({ ...previous, [language]: value ?? '' }))
   }, [language])
 
   function handleRun() {
-    setExecution({ status: 'unavailable', output: '', error: '' })
+    setHasAttemptedRun(true)
   }
 
   return (
@@ -50,7 +46,7 @@ export function CompilerWorkspace() {
         </button>
         <p id="execution-status" role="status">
           Execution service not connected.
-          {execution.status === 'unavailable' && ' No code was run.'}
+          {hasAttemptedRun && ' No code was run.'}
         </p>
       </div>
 
@@ -76,12 +72,12 @@ export function CompilerWorkspace() {
 
           <section className="workspace-panel" aria-labelledby="output-title">
             <h2 className="workspace-panel-title" id="output-title">Output</h2>
-            {execution.output ? <pre>{execution.output}</pre> : <p>No output yet.</p>}
+            <p>No output yet.</p>
           </section>
 
           <section className="workspace-panel" aria-labelledby="error-title">
             <h2 className="workspace-panel-title" id="error-title">Error</h2>
-            {execution.error ? <pre>{execution.error}</pre> : <p>No error results yet.</p>}
+            <p>No error results yet.</p>
           </section>
         </div>
       </div>
