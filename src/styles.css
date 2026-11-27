@@ -57,7 +57,7 @@ h1 span { color: #ae94ff; }
 .editor-language select:focus-visible { outline: 3px solid #9b7aff; outline-offset: 3px; }
 .editor-body { height: clamp(250px, 45vh, 360px); background: #171a26; font-size: 13px; }
 .editor-footer { border-top: 1px solid rgba(255,255,255,.07); height: 38px; display: flex; justify-content: space-between; align-items: center; padding: 0 16px; color: var(--muted); font-size: 10px; }
-.site-footer { height: 70px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(255,255,255,.08); color: #777989; font-size: 9px; letter-spacing: .7px; position: relative; z-index: 1; }
+.site-footer { height: 70px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(255,255,255,.08); color: var(--muted); font-size: 9px; letter-spacing: .7px; position: relative; z-index: 1; }
 .site-footer b { color: #a78bfa; font-size: 13px; margin-left: 5px; }
 
 .header-actions { display: flex; align-items: center; gap: 18px; }
@@ -80,7 +80,7 @@ h1 span { color: #ae94ff; }
 .error-result pre { color: #ffc3c8; }
 .run-button:disabled { opacity: .65; cursor: wait; }
 
-:root[data-theme='light'] { color: #27243a; background: #f5f3fb; }
+:root[data-theme='light'] { color: #27243a; background: #f5f3fb; --muted: #69667a; }
 :root[data-theme='light'] body { color: #27243a; background: #f5f3fb; }
 :root[data-theme='light'] .site-shell::before { background: radial-gradient(circle, rgba(108,82,194,.09), transparent 68%); }
 :root[data-theme='light'] .site-header,
@@ -93,6 +93,10 @@ h1 span { color: #ae94ff; }
 :root[data-theme='light'] .brand-mark { color: #55379b; box-shadow: inset 0 0 18px rgba(85,55,155,.09); }
 :root[data-theme='light'] .brand-mark span { color: #7048c8; }
 :root[data-theme='light'] .theme-toggle { border-color: rgba(39,36,58,.2); }
+:root[data-theme='light'] .theme-toggle:focus-visible,
+:root[data-theme='light'] .run-button:focus-visible,
+:root[data-theme='light'] .workspace-panel textarea:focus-visible,
+:root[data-theme='light'] .editor-language select:focus-visible { outline-color: #7048c8; }
 :root[data-theme='light'] .workspace-panel { border-color: rgba(39,36,58,.16); background: #fff; box-shadow: 0 8px 24px rgba(39,36,58,.05); }
 :root[data-theme='light'] .workspace-panel-title { color: #27243a; }
 :root[data-theme='light'] .workspace-panel textarea { border-color: #cbc5df; background: #fbfaff; color: #27243a; color-scheme: light; }

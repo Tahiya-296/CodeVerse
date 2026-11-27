@@ -64,14 +64,14 @@ const defineTheme = (monaco) => {
     rules: [
       { token: 'keyword', foreground: '7048C8' },
       { token: 'string', foreground: '8C5B00' },
-      { token: 'comment', foreground: '73788A' },
+      { token: 'comment', foreground: '626879' },
     ],
     colors: {
       'editor.background': '#fbfaff',
       'editor.foreground': '#252238',
       'editor.lineHighlightBackground': '#f0edfa',
       'editor.selectionBackground': '#d8cff5',
-      'editorLineNumber.foreground': '#858198',
+      'editorLineNumber.foreground': '#626879',
     },
   })
 }
